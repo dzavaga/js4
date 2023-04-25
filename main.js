@@ -42,3 +42,78 @@ function checkAge() {
 }
 checkAge();
 
+//3
+function calcRectangleArea(width, height) {
+  if (typeof width !== 'number' || typeof height !== 'number') {
+    throw new Error('Parameters must be numbers!');
+  }
+  return width * height;
+}
+
+// Приклад використання функції з обробкою винятків:
+try {
+  let area = calcRectangleArea(5, 'hello');
+  console.log('Rectangle area:', area);
+} catch (error) {
+  console.error('Error:', error.message);
+}
+//4
+class MonthException extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "MonthException";
+  }
+}
+
+function showMonthName(month) {
+  const months = [
+    "January", "February", "March", "April", "May", "June", 
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  if (month < 1 || month > 12) {
+    throw new MonthException("Incorrect month number");
+  }
+
+  return months[month - 1];
+}
+
+try {
+  console.log(showMonthName(5));  // May
+  console.log(showMonthName(14)); // throws MonthException with message "Incorrect month number"
+} catch (e) {
+  if (e instanceof MonthException) {
+    console.log(e.name, e.message);
+  } else {
+    throw e; // re-throw non-MonthException errors
+  }
+}
+//5
+class UserException extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "UserException";
+  }
+}
+
+function showUser(id) {
+  if (id < 0) {
+    throw new UserException("ID must not be negative: " + id);
+  }
+  return { id: id };
+}
+
+function showUsers(ids) {
+  const result = [];
+  for (let id of ids) {
+    try {
+      const user = showUser(id);
+      result.push(user);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+  return result;
+}
+
+console.log(showUsers([7, -12, 44, 22]));
