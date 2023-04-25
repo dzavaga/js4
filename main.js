@@ -50,9 +50,8 @@ function calcRectangleArea(width, height) {
   return width * height;
 }
 
-// Приклад використання функції з обробкою винятків:
 try {
-  let area = calcRectangleArea(5, 'hello');
+  let area = calcRectangleArea(5, 10);
   console.log('Rectangle area:', area);
 } catch (error) {
   console.error('Error:', error.message);
